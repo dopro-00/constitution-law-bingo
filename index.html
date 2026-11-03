@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>국가기관 빙고</title>
+<style>
+:root{color-scheme:light dark}
+body{margin:0;padding:16px;background:light-dark(#f7f9fc,#17202d)}
+#bingo-classroom{max-width:1680px;margin:auto}
+@media(max-width:700px){body{padding:0}}
+</style>
+</head>
+<body>
+<style>
+#bingo-classroom{--bingo-bg:light-dark(#edf2f8,#1d2634);--bingo-paper:light-dark(#ffffff,#273347);--bingo-ink:light-dark(#172d4a,#f0f5fc);--bingo-sub:light-dark(#516580,#b7c7dc);--bingo-rule:light-dark(#d4deeb,#445670);--bingo-blue:light-dark(#2459c1,#a9c6ff);--bingo-on-blue:light-dark(#ffffff,#13264a);--bingo-soft:light-dark(#eaf0fd,#334b71);--bingo-ok:light-dark(#176347,#94ddbe);--bingo-ok-bg:light-dark(#e8f6ee,#243e39);font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:var(--bingo-bg);color:var(--bingo-ink);border-radius:16px;overflow:hidden;line-height:1.5;text-align:left}
+#bingo-classroom *{box-sizing:border-box}
+#bingo-classroom button,#bingo-classroom input,#bingo-classroom select{font:inherit;color:inherit}
+#bingo-classroom button{border:1px solid var(--bingo-rule);background:var(--bingo-paper);padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600}
+#bingo-classroom button:disabled{opacity:.5;cursor:default}
+#bingo-classroom .bingo-primary{background:var(--bingo-blue);color:var(--bingo-on-blue);border-color:var(--bingo-blue)}
+#bingo-classroom .bingo-header{background:var(--bingo-paper);display:flex;align-items:center;gap:12px;padding:22px 26px;border-bottom:1px solid var(--bingo-rule);flex-wrap:wrap}
+#bingo-classroom .bingo-emblem{width:36px;height:36px;display:grid;grid-template-columns:repeat(3,6px);grid-template-rows:repeat(3,6px);align-content:center;justify-content:center;gap:3px;background:var(--bingo-blue);border-radius:9px;flex:none}
+#bingo-classroom .bingo-emblem span{background:var(--bingo-on-blue);border-radius:1px}
+#bingo-classroom .bingo-emblem span:nth-child(3n){opacity:.45}
+#bingo-classroom h1{font-size:22px;letter-spacing:-1px;font-weight:700;margin:0}
+#bingo-classroom .bingo-caption{color:var(--bingo-sub);font-size:12px;margin:0}
+#bingo-classroom .bingo-mode{margin-left:auto;color:var(--bingo-blue);background:var(--bingo-soft);border-radius:20px;padding:5px 10px;font-size:12px;white-space:nowrap}
+#bingo-classroom .bingo-workspace{padding:22px;display:grid;grid-template-columns:minmax(0,1fr) 208px;gap:18px;align-items:start}
+#bingo-classroom .bingo-stage{background:var(--bingo-paper);border-radius:12px;border-top:5px solid var(--bingo-blue);padding:26px 30px 20px;min-height:330px;display:flex;flex-direction:column;gap:16px}
+#bingo-classroom .bingo-stage-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+#bingo-classroom .bingo-label{font-size:12px;color:var(--bingo-sub);font-weight:500}
+#bingo-classroom .bingo-student-tag{font-size:12px;color:var(--bingo-blue);background:var(--bingo-soft);padding:4px 9px;border-radius:5px}
+#bingo-classroom .bingo-ref{font-size:21px;font-weight:700;letter-spacing:-.5px;margin:0}
+#bingo-classroom .bingo-quote{font-family:'Batang','Noto Serif KR',serif;font-size:var(--bingo-quote-size,32px);line-height:1.7;font-weight:400;word-break:keep-all;overflow-wrap:anywhere;letter-spacing:-.8px;margin:0;padding:0 0 8px;flex:1}
+#bingo-classroom .bingo-answer-area{padding-top:14px;border-top:1px solid var(--bingo-rule);display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-height:52px}
+#bingo-classroom .bingo-answer-area button{padding:7px 11px;font-size:12px}
+#bingo-classroom .bingo-answer{font-size:15px;color:var(--bingo-blue);font-weight:600;flex:1;min-width:130px}
+#bingo-classroom .bingo-status{font-size:13px;font-weight:600;color:var(--bingo-sub);margin:0;min-height:20px}
+#bingo-classroom .bingo-status[data-accepted=true]{color:var(--bingo-ok)}
+#bingo-classroom .bingo-controls{padding:18px 0 0;display:grid;gap:10px}
+#bingo-classroom .bingo-pick-row{display:flex;gap:8px;flex-wrap:wrap}
+#bingo-classroom select{border:1px solid var(--bingo-rule);background:var(--bingo-paper);border-radius:8px;padding:10px 12px;font-size:14px;flex:1;min-width:150px;max-width:100%}
+#bingo-classroom .bingo-verdicts{display:flex;gap:8px;flex-wrap:wrap}
+#bingo-classroom .bingo-verdicts .bingo-correct{background:var(--bingo-ok-bg);color:var(--bingo-ok);border-color:transparent}
+#bingo-classroom .bingo-aside{background:var(--bingo-paper);border-radius:12px;padding:18px;display:grid;gap:12px}
+#bingo-classroom h2{font-size:14px;font-weight:700;margin:0}
+#bingo-classroom .bingo-ticket{text-align:center;padding:8px 0 10px}
+#bingo-classroom .bingo-number{font-size:64px;line-height:1.1;font-weight:750;color:var(--bingo-blue);font-variant-numeric:tabular-nums;display:inline-block;min-width:85px;letter-spacing:-3px}
+#bingo-classroom .bingo-number-unit{font-size:15px;color:var(--bingo-sub)}
+#bingo-classroom .bingo-draw{width:100%}
+#bingo-classroom .bingo-settings{border-top:1px solid var(--bingo-rule);padding-top:12px;font-size:12px;color:var(--bingo-sub)}
+#bingo-classroom summary{font-size:12px;color:var(--bingo-sub)}
+#bingo-classroom .bingo-setting-fields{display:grid;gap:10px;padding-top:12px}
+#bingo-classroom .bingo-setting-fields label{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+#bingo-classroom input[type=number]{width:62px;border:1px solid var(--bingo-rule);background:var(--bingo-paper);border-radius:5px;padding:5px;font-size:16px}
+#bingo-classroom input[type=checkbox]{accent-color:var(--bingo-blue)}
+#bingo-classroom .bingo-aside-note{font-size:11px;color:var(--bingo-sub);margin:0}
+#bingo-classroom .bingo-rules{font-size:12px;color:var(--bingo-sub);padding:16px 2px 0;text-align:center}
+#bingo-classroom .bingo-history{grid-column:1/-1;border-top:1px solid var(--bingo-rule);padding:18px 0 2px;display:grid;gap:10px}
+#bingo-classroom .bingo-history-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+#bingo-classroom .bingo-history-list{display:flex;flex-wrap:wrap;gap:7px}
+#bingo-classroom .bingo-history-list button{background:var(--bingo-ok-bg);color:var(--bingo-ok);border:0;padding:8px 11px;font-weight:500;font-size:12px}
+#bingo-classroom .bingo-empty{font-size:13px;color:var(--bingo-sub);margin:0;padding:3px 0}
+#bingo-classroom .bingo-history-head button{border:0;background:transparent;padding:3px 0;color:var(--bingo-sub);font-size:12px;font-weight:400}
+@media(max-width:700px){#bingo-classroom .bingo-header{padding-left:16px}#bingo-classroom .bingo-workspace{padding:14px;grid-template-columns:minmax(0,1fr)}#bingo-classroom .bingo-stage{padding:20px;min-height:290px}#bingo-classroom .bingo-quote{font-size:clamp(23px,4vw,30px)}#bingo-classroom .bingo-aside{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}#bingo-classroom .bingo-ticket{grid-column:2;grid-row:1/3;padding:0}#bingo-classroom .bingo-number{font-size:48px}#bingo-classroom .bingo-draw{width:auto;justify-self:start}#bingo-classroom .bingo-settings,#bingo-classroom .bingo-aside-note{grid-column:1/-1}#bingo-classroom .bingo-rules{display:none}#bingo-classroom .bingo-history{grid-column:auto}}
+@media(prefers-reduced-motion:no-preference){#bingo-classroom .bingo-number[data-rolling=true]{animation:bingo-roll .12s alternate infinite}@keyframes bingo-roll{from{opacity:.45;transform:translateY(-2px)}to{opacity:1;transform:translateY(2px)}}}
+
+#bingo-classroom [hidden]{display:none!important}
+#bingo-classroom button,#bingo-classroom summary{cursor:pointer}
+#bingo-classroom button:disabled{cursor:default}
+#bingo-classroom .bingo-new-class{margin-left:auto;font-size:12px;font-weight:500;color:var(--bingo-sub)}
+#bingo-classroom .bingo-excluded-label{display:grid;gap:6px}
+#bingo-classroom #bingo-excluded{width:100%;min-width:0;border:1px solid var(--bingo-rule);border-radius:6px;background:var(--bingo-paper);padding:8px;font-size:16px}
+#bingo-classroom .bingo-draw-note[data-error=true]{color:light-dark(#a32a32,#ffb5bc)}
+#bingo-classroom :focus-visible{outline:3px solid var(--bingo-blue);outline-offset:3px}
+</style>
+<div id="bingo-classroom" aria-label="국가기관 빙고 진행 화면">
+  <header class="bingo-header">
+    <div class="bingo-emblem" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div><h1>국가기관 빙고</h1><p class="bingo-caption">헌법으로 연결하는 국가기관</p></div>
+    <button class="bingo-new-class" type="button">새 수업</button>
+  </header>
+  <div class="bingo-workspace">
+    <main>
+      <section class="bingo-stage" aria-label="현재 발표 조문">
+        <div class="bingo-stage-top"><span class="bingo-label">지금 함께 볼 조문</span><span class="bingo-student-tag">발표자 추첨 전</span></div>
+        <h2 class="bingo-ref">제66조 제4항</h2>
+        <p class="bingo-quote" aria-live="polite">행정권은 대통령을 수반으로 하는 정부에 속한다.</p>
+        <div class="bingo-answer-area"><button class="cursor-interaction bingo-reveal" aria-expanded="false" type="button">관련 개념 보기</button><span class="bingo-answer" hidden></span></div>
+        <p class="bingo-status" aria-live="polite">학생의 설명을 듣고 연결을 확인해 주세요.</p>
+      </section>
+      <div class="bingo-controls">
+        <label class="bingo-label" for="bingo-clause-picker">학생이 말한 조문</label>
+        <div class="bingo-pick-row"><select id="bingo-clause-picker" aria-label="화면에 띄울 헌법 조문"></select><button class="bingo-show bingo-primary" type="button">화면에 띄우기</button></div>
+        <div class="bingo-verdicts"><button class="bingo-correct" type="button">맞아요 · 빙고판에 표시</button><button class="bingo-pass" type="button">오답 · 다음 차례</button></div>
+      </div>
+    </main>
+    <div>
+      <aside class="bingo-aside" aria-label="발표자 추첨">
+        <h2>이번에 말할 사람</h2>
+        <div class="bingo-ticket"><span class="bingo-number" aria-hidden="true">—</span><span class="bingo-number-unit">번</span></div>
+        <button class="bingo-draw bingo-primary" type="button">학생 번호 뽑기</button>
+        <p class="bingo-aside-note bingo-draw-note" aria-live="polite">1~30번 · 중복 없이 추첨</p>
+        <details class="bingo-settings"><summary >추첨 설정</summary><div class="bingo-setting-fields"><label for="bingo-last-number">마지막 번호 <input id="bingo-last-number" type="number" min="1" max="60" value="30"></label><label class="bingo-excluded-label" for="bingo-excluded">결번·결석 번호 <input id="bingo-excluded" type="text" placeholder="예: 3, 8, 15" aria-describedby="bingo-excluded-help" autocomplete="off"></label><p class="bingo-aside-note" id="bingo-excluded-help">쉼표나 공백으로 나눠 입력하세요.<br>입력한 번호는 추첨에서 제외됩니다.</p><label><input class="bingo-no-repeat" type="checkbox" checked> 중복 없이 뽑기</label><button class="bingo-reset-draw" type="button">추첨 기록 초기화</button></div></details>
+      </aside>
+    </div>
+    <section class="bingo-history" aria-label="빙고판에 표시한 조문 기록">
+      <div class="bingo-history-head"><h2>지금까지 표시한 조문 <span class="bingo-history-count">0</span></h2><button class="bingo-undo" type="button" disabled>마지막 표시 취소</button></div>
+      <div class="bingo-history-list"><p class="bingo-empty">맞게 연결한 조문이 여기에 모입니다.</p></div>
+    </section>
+  </div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('bingo-classroom');
+  const rows = [{"n": 1, "concept": "대통령의 국민 직접 선거", "ref": "제67조 제1항", "quote": "대통령은 국민의 보통ㆍ평등ㆍ직접ㆍ비밀선거에 의하여 선출한다."}, {"n": 2, "concept": "대통령의 임기: 5년, 중임 금지", "ref": "제70조", "quote": "대통령의 임기는 5년으로 하며, 중임할 수 없다."}, {"n": 3, "concept": "대통령의 국가 원수 지위", "ref": "제66조 제1항", "quote": "대통령은 국가의 원수이며, 외국에 대하여 국가를 대표한다."}, {"n": 4, "concept": "대통령의 행정부 수반 지위·행정권", "ref": "제66조 제4항", "quote": "행정권은 대통령을 수반으로 하는 정부에 속한다."}, {"n": 5, "concept": "대통령의 법률안 거부권(재의 요구권)", "ref": "제53조 제2항", "quote": "법률안에 이의가 있을 때에는 대통령은 제1항의 기간내에 이의서를 붙여 국회로 환부하고, 그 재의를 요구할 수 있다. 국회의 폐회 중에도 또한 같다."}, {"n": 6, "concept": "대통령의 조약 체결·외교 활동", "ref": "제73조", "quote": "대통령은 조약을 체결ㆍ비준하고, 외교사절을 신임ㆍ접수 또는 파견하며, 선전포고와 강화를 한다."}, {"n": 7, "concept": "대통령의 중요 정책 국민 투표 부의", "ref": "제72조", "quote": "대통령은 필요하다고 인정할 때에는 외교ㆍ국방ㆍ통일 기타 국가안위에 관한 중요정책을 국민투표에 붙일 수 있다."}, {"n": 8, "concept": "국무총리 임명: 국회 동의·대통령 임명", "ref": "제86조 제1항", "quote": "국무총리는 국회의 동의를 얻어 대통령이 임명한다."}, {"n": 9, "concept": "국무총리의 대통령 보좌·행정 각부 총괄", "ref": "제86조 제2항", "quote": "국무총리는 대통령을 보좌하며, 행정에 관하여 대통령의 명을 받아 행정각부를 통할한다."}, {"n": 10, "concept": "국무총리 등의 대통령 권한 대행", "ref": "제71조", "quote": "대통령이 궐위되거나 사고로 인하여 직무를 수행할 수 없을 때에는 국무총리, 법률이 정한 국무위원의 순서로 그 권한을 대행한다."}, {"n": 11, "concept": "국무 위원의 임명", "ref": "제87조 제1항", "quote": "국무위원은 국무총리의 제청으로 대통령이 임명한다."}, {"n": 12, "concept": "행정 각부의 장(장관)의 임명", "ref": "제94조", "quote": "행정각부의 장은 국무위원 중에서 국무총리의 제청으로 대통령이 임명한다."}, {"n": 13, "concept": "국무 회의: 정부의 중요 정책 심의", "ref": "제88조 제1항", "quote": "국무회의는 정부의 권한에 속하는 중요한 정책을 심의한다."}, {"n": 14, "concept": "국무 회의의 구성", "ref": "제88조 제2항", "quote": "국무회의는 대통령ㆍ국무총리와 15인 이상 30인 이하의 국무위원으로 구성한다."}, {"n": 15, "concept": "국무 회의 의장: 대통령 / 부의장: 국무총리", "ref": "제88조 제3항", "quote": "대통령은 국무회의의 의장이 되고, 국무총리는 부의장이 된다."}, {"n": 16, "concept": "감사원: 대통령 소속·회계 검사·직무 감찰", "ref": "제97조", "quote": "국가의 세입ㆍ세출의 결산, 국가 및 법률이 정한 단체의 회계검사와 행정기관 및 공무원의 직무에 관한 감찰을 하기 위하여 대통령 소속하에 감사원을 둔다."}, {"n": 17, "concept": "대통령의 법률안 공포", "ref": "제53조 제1항", "quote": "국회에서 의결된 법률안은 정부에 이송되어 15일 이내에 대통령이 공포한다."}, {"n": 18, "concept": "대통령의 대법원장·대법관 임명(국회 동의)", "ref": "제104조 제1·2항", "quote": "① 대법원장은 국회의 동의를 얻어 대통령이 임명한다.<br/>② 대법관은 대법원장의 제청으로 국회의 동의를 얻어 대통령이 임명한다."}, {"n": 19, "concept": "대통령의 사면권", "ref": "제79조 제1항", "quote": "대통령은 법률이 정하는 바에 의하여 사면ㆍ감형 또는 복권을 명할 수 있다."}, {"n": 20, "concept": "국회의 국민 대표 기관 지위·의원 선출", "ref": "제41조 제1항", "quote": "국회는 국민의 보통ㆍ평등ㆍ직접ㆍ비밀선거에 의하여 선출된 국회의원으로 구성한다."}, {"n": 21, "concept": "국회의원 선거구·비례 대표제", "ref": "제41조 제3항", "quote": "국회의원의 선거구와 비례대표제 기타 선거에 관한 사항은 법률로 정한다."}, {"n": 22, "concept": "국회의원의 임기: 4년", "ref": "제42조", "quote": "국회의원의 임기는 4년으로 한다."}, {"n": 23, "concept": "국회 의장 1명·부의장 2명 선출", "ref": "제48조", "quote": "국회는 의장 1인과 부의장 2인을 선출한다."}, {"n": 24, "concept": "국회의 입법권: 법률 제정·개정", "ref": "제40조", "quote": "입법권은 국회에 속한다."}, {"n": 25, "concept": "국회의원과 정부의 법률안 제출", "ref": "제52조", "quote": "국회의원과 정부는 법률안을 제출할 수 있다."}, {"n": 26, "concept": "국회 본회의의 일반적인 의결 요건", "ref": "제49조", "quote": "국회는 헌법 또는 법률에 특별한 규정이 없는 한 재적의원 과반수의 출석과 출석의원 과반수의 찬성으로 의결한다. 가부동수인 때에는 부결된 것으로 본다."}, {"n": 27, "concept": "헌법 개정안 제안", "ref": "제128조 제1항", "quote": "헌법개정은 국회재적의원 과반수 또는 대통령의 발의로 제안된다."}, {"n": 28, "concept": "국회의 헌법 개정안 의결", "ref": "제130조 제1항", "quote": "국회는 헌법개정안이 공고된 날로부터 60일 이내에 의결하여야 하며, 국회의 의결은 재적의원 3분의 2 이상의 찬성을 얻어야 한다."}, {"n": 29, "concept": "국회의 주요 조약 체결·비준 동의권", "ref": "제60조 제1항", "quote": "국회는 상호원조 또는 안전보장에 관한 조약, …… 또는 입법사항에 관한 조약의 체결ㆍ비준에 대한 동의권을 가진다."}, {"n": 30, "concept": "국회의 예산안 심의·확정", "ref": "제54조 제1항", "quote": "국회는 국가의 예산안을 심의ㆍ확정한다."}, {"n": 31, "concept": "결산: 감사원 검사·국회 보고와 심사", "ref": "제99조", "quote": "감사원은 세입ㆍ세출의 결산을 매년 검사하여 대통령과 차년도국회에 그 결과를 보고하여야 한다."}, {"n": 32, "concept": "국회의 세금 종류·세율 결정(법률)", "ref": "제59조", "quote": "조세의 종목과 세율은 법률로 정한다."}, {"n": 33, "concept": "국회의 국정 감사·국정 조사", "ref": "제61조 제1항", "quote": "국회는 국정을 감사하거나 특정한 국정사안에 대하여 조사할 수 있으며, ……"}, {"n": 34, "concept": "국회의 탄핵 소추 의결", "ref": "제65조 제1항", "quote": "대통령ㆍ국무총리ㆍ국무위원ㆍ행정각부의 장ㆍ…… 기타 법률이 정한 공무원이 그 직무집행에 있어서 헌법이나 법률을 위배한 때에는 국회는 탄핵의 소추를 의결할 수 있다."}, {"n": 35, "concept": "법원의 사법권", "ref": "제101조 제1항", "quote": "사법권은 법관으로 구성된 법원에 속한다."}, {"n": 36, "concept": "법원의 조직: 대법원과 각급 법원", "ref": "제101조 제2항", "quote": "법원은 최고법원인 대법원과 각급법원으로 조직된다."}, {"n": 37, "concept": "사법권의 독립: 법관의 독립된 심판", "ref": "제103조", "quote": "법관은 헌법과 법률에 의하여 그 양심에 따라 독립하여 심판한다."}, {"n": 38, "concept": "대법원의 명령·규칙·처분 최종 심사", "ref": "제107조 제2항", "quote": "명령ㆍ규칙 또는 처분이 헌법이나 법률에 위반되는 여부가 재판의 전제가 된 경우에는 대법원은 이를 최종적으로 심사할 권한을 가진다."}, {"n": 39, "concept": "법원의 위헌 법률 심판 제청", "ref": "제107조 제1항", "quote": "법률이 헌법에 위반되는 여부가 재판의 전제가 된 경우에는 법원은 헌법재판소에 제청하여 그 심판에 의하여 재판한다."}, {"n": 40, "concept": "헌법재판소 재판관 9명의 구성·임명", "ref": "제111조 제2·3항", "quote": "② 헌법재판소는 법관의 자격을 가진 9인의 재판관으로 구성하며, 재판관은 대통령이 임명한다.<br/>③ 제2항의 재판관중 3인은 국회에서 선출하는 자를, 3인은 대법원장이 지명하는 자를 임명한다."}, {"n": 41, "concept": "헌법재판소장 임명과 국회의 동의", "ref": "제111조 제4항", "quote": "헌법재판소의 장은 국회의 동의를 얻어 재판관 중에서 대통령이 임명한다."}, {"n": 42, "concept": "헌법재판소의 위헌 법률 심판", "ref": "제111조 제1항 제1호", "quote": "헌법재판소는 다음 사항을 관장한다.<br/>1. 법원의 제청에 의한 법률의 위헌여부 심판"}, {"n": 43, "concept": "헌법재판소의 헌법 소원 심판", "ref": "제111조 제1항 제5호", "quote": "헌법재판소는 다음 사항을 관장한다.<br/>5. 법률이 정하는 헌법소원에 관한 심판"}, {"n": 44, "concept": "헌법재판소의 탄핵 심판", "ref": "제111조 제1항 제2호", "quote": "헌법재판소는 다음 사항을 관장한다.<br/>2. 탄핵의 심판"}, {"n": 45, "concept": "헌법재판소의 권한 쟁의 심판", "ref": "제111조 제1항 제4호", "quote": "헌법재판소는 다음 사항을 관장한다.<br/>4. 국가기관 상호간, 국가기관과 지방자치단체간 및 지방자치단체 상호간의 권한쟁의에 관한 심판"}, {"n": 46, "concept": "헌법재판소의 정당 해산 심판", "ref": "제8조 제4항", "quote": "정당의 목적이나 활동이 민주적 기본질서에 위배될 때에는 정부는 헌법재판소에 그 해산을 제소할 수 있고, 정당은 헌법재판소의 심판에 의하여 해산된다."}];
+  const q = selector => root.querySelector(selector);
+  const picker = q('#bingo-clause-picker');
+  const lastNumber = q('#bingo-last-number');
+  const exclusionInput = q('#bingo-excluded');
+  const noRepeat = q('.bingo-no-repeat');
+  const note = q('.bingo-draw-note');
+  let current = 4, student = null, shown = false;
+  let accepted = [], drawn = [], busy = false;
+  const storageKey = 'constitution-bingo-classroom-v1';
+  function save() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({current, student, accepted, drawn,
+        last: Number(lastNumber.value), excluded: exclusionInput.value, noRepeat: noRepeat.checked}));
+    } catch (_) { /* The lesson still works when browser storage is unavailable. */ }
+  }
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey));
+    if (saved && rows.some(r => r.n === saved.current)) {
+      current = saved.current;
+      student = Number.isInteger(saved.student) && saved.student > 0 && saved.student <= 60 ? saved.student : null;
+      accepted = Array.isArray(saved.accepted) ? [...new Set(saved.accepted)].filter(n => rows.some(r => r.n === n)) : [];
+      drawn = Array.isArray(saved.drawn) ? [...new Set(saved.drawn)].filter(n => Number.isInteger(n) && n > 0 && n <= 60) : [];
+      if (Number.isInteger(saved.last) && saved.last >= 1 && saved.last <= 60) lastNumber.value = saved.last;
+      if (typeof saved.excluded === 'string') exclusionInput.value = saved.excluded;
+      if (typeof saved.noRepeat === 'boolean') noRepeat.checked = saved.noRepeat;
+    }
+  } catch (_) {}
+  const groups = [['대통령과 행정부',1,19],['국회',20,34],['법원',35,39],['헌법재판소',40,46]];
+  const refParts = r => (r.ref.match(/\d+/g) || []).map(Number);
+  groups.forEach(([name,start,end]) => {
+    const group = document.createElement('optgroup');
+    group.label = name;
+    rows.filter(r => r.n >= start && r.n <= end).sort((a,b) => {
+      const x = refParts(a), y = refParts(b);
+      for (let i = 0; i < Math.max(x.length,y.length); i++) {
+        if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) - (y[i] || 0);
+      }
+      return a.n-b.n;
+    }).forEach(r => {
+      const option = document.createElement('option');
+      option.value = r.n; option.textContent = r.ref; group.append(option);
+    });
+    picker.append(group);
+  });
+  function configuration() {
+    const max = Number(lastNumber.value);
+    if (!Number.isInteger(max) || max < 1 || max > 60) {
+      throw new Error('마지막 번호는 1~60 사이의 정수로 입력해 주세요.');
+    }
+    const tokens = exclusionInput.value.trim().split(/[,，\s]+/).filter(Boolean);
+    if (tokens.some(t => !/^\d+$/.test(t) || Number(t) < 1 || Number(t) > max)) {
+      throw new Error(`결번·결석 번호는 1~${max} 사이의 번호를 쉼표로 나눠 입력해 주세요.`);
+    }
+    const excluded = new Set(tokens.map(Number));
+    const eligible = Array.from({length:max},(_,i) => i+1).filter(n => !excluded.has(n));
+    return {max, excluded, eligible};
+  }
+  function poolFor(config) {
+    return config.eligible.filter(n => !noRepeat.checked || !drawn.includes(n));
+  }
+  function updateNote() {
+    try {
+      const config = configuration();
+      exclusionInput.removeAttribute('aria-invalid'); lastNumber.removeAttribute('aria-invalid');
+      note.dataset.error = 'false';
+      if (!config.eligible.length) note.textContent = '모든 번호가 제외되어 있습니다. 결번·결석 번호를 확인해 주세요.';
+      else note.textContent = `추첨 대상 ${config.eligible.length}명 · ${config.excluded.size}명 제외${noRepeat.checked ? ` · 남은 번호 ${poolFor(config).length}개` : ' · 중복 허용'}`;
+      return config;
+    } catch (error) {
+      note.textContent = error.message; note.dataset.error = 'true';
+      exclusionInput.setAttribute('aria-invalid','true');
+      return null;
+    }
+  }
+  function renderHistory() {
+    q('.bingo-history-count').textContent = accepted.length;
+    q('.bingo-undo').disabled = !accepted.length;
+    const list = q('.bingo-history-list'); list.replaceChildren();
+    if (!accepted.length) {
+      const p = document.createElement('p'); p.className = 'bingo-empty';
+      p.textContent = '맞게 연결한 조문이 여기에 모입니다.'; list.append(p);
+    }
+    accepted.forEach(n => {
+      const r = rows.find(r => r.n === n), button = document.createElement('button');
+      button.type = 'button'; button.textContent = `✓ ${r.ref}`;
+      button.setAttribute('aria-label',`${r.ref} 다시 보기`);
+      button.onclick = () => { current=n; shown=false; render(); save(); };
+      list.append(button);
+    });
+  }
+  function render() {
+    const r = rows.find(r => r.n === current);
+    picker.value = current;
+    q('.bingo-ref').textContent = r.ref;
+    q('.bingo-quote').innerHTML = r.quote;
+    q('.bingo-student-tag').textContent = student === null ? '발표자 추첨 전' : `${student}번 학생 발표`;
+    q('.bingo-number').textContent = student === null ? '—' : String(student).padStart(2,'0');
+    q('.bingo-draw').textContent = student === null ? '학생 번호 뽑기' : '다음 학생 뽑기';
+    q('.bingo-answer').textContent = `${r.n}번 · ${r.concept}`;
+    q('.bingo-answer').hidden = !shown;
+    q('.bingo-reveal').textContent = shown ? '개념 가리기' : '관련 개념 보기';
+    q('.bingo-reveal').setAttribute('aria-expanded',String(shown));
+    const marked = accepted.includes(current);
+    q('.bingo-status').dataset.accepted = String(marked);
+    q('.bingo-status').textContent = marked ? '이 조문은 이미 표시했습니다.' : '학생의 설명을 듣고 연결을 확인해 주세요.';
+    q('.bingo-correct').disabled = marked;
+    q('.bingo-pass').disabled = marked;
+    renderHistory();
+  }
+  q('.bingo-show').onclick = () => {current=Number(picker.value);shown=false;render();save();};
+  q('.bingo-reveal').onclick = () => {shown=!shown;render();};
+  q('.bingo-correct').onclick = () => {
+    if (accepted.includes(current)) return;
+    accepted.push(current); render();
+    q('.bingo-status').textContent = '맞게 연결했어요. 이 조문이 있으면 빙고판에 표시하세요.'; save();
+  };
+  q('.bingo-pass').onclick = () => {
+    q('.bingo-status').textContent = '표시하지 않고 다음 차례로 넘어갑니다. 이 조문은 다시 고를 수 있어요.';
+    q('.bingo-status').dataset.accepted = 'false';
+  };
+  q('.bingo-undo').onclick = () => {accepted.pop();render();save();};
+  q('.bingo-reset-draw').onclick = () => {drawn=[];student=null;render();updateNote();save();};
+  lastNumber.onchange = () => {
+    const config = updateNote(); if (!config) return;
+    drawn=[];student=null;render();updateNote();save();
+  };
+  exclusionInput.onchange = () => {
+    const config = updateNote(); if (!config) return;
+    if (config.excluded.has(student)) student=null;
+    render();save();
+  };
+  noRepeat.onchange = () => {updateNote();save();};
+  q('.bingo-new-class').onclick = () => {
+    if (!confirm('발표 기록과 표시한 조문을 지우고 새 수업을 시작할까요? 추첨 설정은 유지됩니다.')) return;
+    current=4;student=null;shown=false;accepted=[];drawn=[];render();updateNote();save();
+  };
+  function setBusy(value) {
+    busy=value;
+    [lastNumber,exclusionInput,noRepeat,q('.bingo-reset-draw'),q('.bingo-draw'),q('.bingo-new-class')].forEach(el => el.disabled=value);
+    q('.bingo-number').dataset.rolling=String(value);
+  }
+  q('.bingo-draw').onclick = () => {
+    if (busy) return;
+    const config=updateNote(); if (!config || !config.eligible.length) return;
+    const pool=poolFor(config);
+    if (!pool.length) {note.textContent='모든 학생을 뽑았습니다. 추첨 기록을 초기화하면 다시 뽑을 수 있습니다.';return;}
+    setBusy(true);q('.bingo-draw').textContent='뽑는 중…';
+    const target=pool[Math.floor(Math.random()*pool.length)];
+    const timer=setInterval(() => {q('.bingo-number').textContent=String(pool[Math.floor(Math.random()*pool.length)]).padStart(2,'0');},75);
+    setTimeout(() => {
+      clearInterval(timer);setBusy(false);student=target;drawn.push(target);shown=false;render();updateNote();
+      note.textContent=`${target}번 학생 차례입니다.${noRepeat.checked ? ` 남은 번호 ${poolFor(config).length}개` : ''}`;
+      save();
+    },matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 700);
+  };
+  try { const config=configuration();if(!config.eligible.includes(student))student=null; } catch (_) {student=null;}
+  render();updateNote();
+})();
+
+</script>
+</body>
+</html>
